@@ -26,20 +26,7 @@ if(isset($update->message)){
     if($text == "/start" || $text == '/help'){
         makeHTTPRequest('sendMessage',[
             'chat_id'=>$update->message->chat->id,
-            'text'=>' 'reply_markup'=>json_encode([
-      'inline_keyboard'=>[
-        [
-          ['text'=>'developer','url'=>'https://telegram.me/NobLest']
-        ],
-        [
-          ['text'=>'Channel','url'=>'https://telegram.me/TeleBlasterTeam']
-        ],
-        [ 
-          ['text'=>'surce','url'=>'https://github.com/alireza1998/DontEditBOT']
-        ]  
-      ]
-    ])
-  ]);',
+            'text'=>'<b>سلام خوش آمدید</b>',
             'parse_mode'=>'HTML
                'disable_web_page_preview'=>true
         ]);
