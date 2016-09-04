@@ -27,7 +27,7 @@ if(isset($update->message)){
         makeHTTPRequest('sendMessage',[
             'chat_id'=>$update->message->chat->id,
             'text'=>'Hi Welcome to TextToSticker_bot',
-            'parse_mode'=>'HTML',
+            'parse_mode'=>'HTML
             'reply_markup'=>json_encode([
       'inline_keyboard'=>[
         [
@@ -37,13 +37,11 @@ if(isset($update->message)){
           ['text'=>'Channel','url'=>'https://telegram.me/TeleBlasterTeam']
         ],
         [ 
-          ['text'=>'surce','url'=>'https://github.com/mohamad007/tosticker/']
+          ['text'=>'surce','url'=>'https://github.com/alireza1998/DontEditBOT']
         ]  
       ]
     ])
   ]);
-            'disable_web_page_preview'=>true
-        ]);
         return false;
     }
 
