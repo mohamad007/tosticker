@@ -5,7 +5,7 @@ ini_set("error_log", __DIR__."/error_log");
 require 'farsiGD.php';
 $gd = new FarsiGD();
 ob_start();
-define('API_KEY','XXX:XXX');// your API KEY here ...
+define('API_KEY','267899740:AAE9J5O7eO6kJxfOLS3l_1y_VipzG1P8aBo');// your API KEY here ...
 $update = json_decode(file_get_contents('php://input'));
 function makeHTTPRequest($method,$datas=[]){
     $url = "https://api.telegram.org/bot".API_KEY."/".$method;
@@ -26,16 +26,22 @@ if(isset($update->message)){
     if($text == "/start" || $text == '/help'){
         makeHTTPRequest('sendMessage',[
             'chat_id'=>$update->message->chat->id,
-            'text'=>'<b>Welcome to TEXT TO STICKER bot</b>
-
-▪️This robot convert your messages into a sticker
-
-▪️be careful with your message to avoid overflow.
-
-▪️now send me a <b>message</b> and i will convert it :)
-
-▪️also you can <a href="https://telegram.me/XxattackerxX">Contact Me !</a>',
+            'text'=>'Hi Welcome to TextToSticker_bot',
             'parse_mode'=>'HTML',
+            'reply_markup'=>json_encode([
+      'inline_keyboard'=>[
+        [
+          ['text'=>'developer','url'=>'https://telegram.me/NobLest']
+        ],
+        [
+          ['text'=>'Channel','url'=>'https://telegram.me/TeleBlasterTeam']
+        ],
+        [ 
+          ['text'=>'surce','url'=>'https://github.com/mohamad007/tosticker/']
+        ]  
+      ]
+    ])
+  ]);
             'disable_web_page_preview'=>true
         ]);
         return false;
