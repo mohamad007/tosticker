@@ -5,7 +5,7 @@ ini_set("error_log", __DIR__."/error_log");
 require 'farsiGD.php';
 $gd = new FarsiGD();
 ob_start();
-define('API_KEY','267899740:AAEcE6IFzjMn3aJQGdQFe2D7yM3wFsfVQ5I');// your API KEY here ...
+define('API_KEY','267899740:AAE3goXlvGHyZCVf8ggv3t82c3V8Trg8ut4');// your API KEY here ...
 $update = json_decode(file_get_contents('php://input'));
 function makeHTTPRequest($method,$datas=[]){
     $url = "https://api.telegram.org/bot".API_KEY."/".$method;
