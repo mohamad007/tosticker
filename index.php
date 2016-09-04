@@ -26,9 +26,7 @@ if(isset($update->message)){
     if($text == "/start" || $text == '/help'){
         makeHTTPRequest('sendMessage',[
             'chat_id'=>$update->message->chat->id,
-            'text'=>'Hi Welcome to TextToSticker_bot',
-            'parse_mode'=>'HTML
-            'reply_markup'=>json_encode([
+            'text'=>' 'reply_markup'=>json_encode([
       'inline_keyboard'=>[
         [
           ['text'=>'developer','url'=>'https://telegram.me/NobLest']
@@ -41,7 +39,10 @@ if(isset($update->message)){
         ]  
       ]
     ])
-  ]);
+  ]);',
+            'parse_mode'=>'HTML
+               'disable_web_page_preview'=>true
+        ]);
         return false;
     }
 
