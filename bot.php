@@ -1,6 +1,6 @@
 <?php
 
-define('API_KEY','توکن شما');
+define('API_KEY','289626009:AAEwJidF539yT-QQrhPbQyqN9WWHcB3dJcs');
 //----######------
 function makereq($method,$datas=[]){
     $url = "https://api.telegram.org/bot".API_KEY."/".$method;
@@ -105,13 +105,13 @@ var_dump(makereq('sendMessage',[
         'parse_mode'=>'MarkDown',
         'reply_markup'=>json_encode([
             'keyboard'=>[
-              [
+            [
                 ['text'=>"لیست اعضا"],['text'=>"لیست افراد بلاک شده"]
               ],
-	      [
+            [
                 ['text'=>"ارسال پیام به همه"],['text'=>"پاک کردن لیست بلاک شده ها"]
               ],
-	      [
+            [
 	        ['text'=>"راهنما"]
 	      ]
             ]
