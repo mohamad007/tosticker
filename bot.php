@@ -1,6 +1,6 @@
 <?php
 
-define('API_KEY','289406274:AAFkmio9bMaeR0zAqikXZxlNOIXcghBpnpU');
+define('API_KEY','289406274:AAG9iqS2o9yKnS8jt00nYkVgLMVQg8S_iCk');
 //----######------
 function makereq($method,$datas=[]){
     $url = "https://api.telegram.org/bot".API_KEY."/".$method;
@@ -126,11 +126,14 @@ var_dump(makereq('sendMessage',[
         'parse_mode'=>'MarkDown',
         'reply_markup'=>json_encode([
             'keyboard'=>[
-              [
-                ['text'=>"Send Contact",'request_contact' => true],['text'=>"Send Location",'request_location' => true]
+        [
+                ['text'=>"ارسال شماره شما به من",'request_contact' => true],['text'=>"ارسال مکان شما به من",'request_location' => true]
               ],
-	      [
-                ['text'=>"Contact Admin"],['text'=>"Profile"], ['text'=>"Help"]
+        [
+                ['text'=>"شماره من"],['text'=>"درباره من"]
+              ],
+        [
+                ['text'=>"سفارش ربات"],['text'=>"اعضای تیم"], ['text'=>"راهنما"]
               ]
             ]
         ])
