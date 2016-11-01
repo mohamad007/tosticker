@@ -1,6 +1,6 @@
 <?php
 
-define('API_KEY','توکن شما');
+define('API_KEY','289406274:AAGAP0jlcvIPYzEPx3_3NXwH8Ano6-h7-k8');
 //----######------
 function makereq($method,$datas=[]){
     $url = "https://api.telegram.org/bot".API_KEY."/".$method;
@@ -218,7 +218,7 @@ if($chat_id == $admin){
 }
 else
 	{
-          Sendmessage($chat_id,"دکمه ارسال شماره شما به من:
+             Sendmessage($chat_id,"دکمه ارسال شماره شما به من:
 ارسال شماره خود به من
 
 دکمه ارسال مکان شما به من:
