@@ -1,6 +1,6 @@
 <?php
 
-define('API_KEY','289626009:AAEwJidF539yT-QQrhPbQyqN9WWHcB3dJcs');
+define('API_KEY','TOKEN');
 //----######------
 function makereq($method,$datas=[]){
     $url = "https://api.telegram.org/bot".API_KEY."/".$method;
@@ -63,7 +63,7 @@ $file = $update->message->document;
 $music = $update->message->audio;
 $voice = $update->message->voice;
 $forward = $update->message->forward_from;
-$admin = 193930120;
+$admin = 216996658;
 //-------
 function SendMessage($ChatId, $TextMsg)
 {
@@ -101,28 +101,28 @@ if($textmessage == '/start')
  if ($from_id == $admin) {
 var_dump(makereq('sendMessage',[
         'chat_id'=>$update->message->chat->id,
-        'text'=>"سلام بابایی\n`خوش امدید به ربات",
+        'text'=>"*Hi Admin*\n`Wlecome To Your Bot`",
         'parse_mode'=>'MarkDown',
         'reply_markup'=>json_encode([
             'keyboard'=>[
-            [
-                ['text'=>"لیست اعضا"],['text'=>"لیست افراد بلاک شده"]
+              [
+                ['text'=>"Count Member"],['text'=>"Block List"]
               ],
-            [
-                ['text'=>"ارسال پیام به همه"],['text'=>"پاک کردن لیست بلاک شده ها"]
+	      [
+                ['text'=>"Send To All"],['text'=>"Clean Blcok List"]
               ],
-            [
-	        ['text'=>"راهنما"]
+	      [
+	        ['text'=>"Help"]
 	      ]
             ]
         ])
     ]));
  }
  else{
-
+ 
 var_dump(makereq('sendMessage',[
         'chat_id'=>$update->message->chat->id,
-        'text'=>"سلام `#$name` \n\nلطفا پیام خودرا ارسال کنید",
+        'text'=>"Hi `#$name` \n\nPls send *PM*",
         'parse_mode'=>'MarkDown',
         'reply_markup'=>json_encode([
             'keyboard'=>[
@@ -135,10 +135,9 @@ var_dump(makereq('sendMessage',[
         [
                 ['text'=>"سفارش ربات"],['text'=>"اعضای تیم"], ['text'=>"راهنما"]
               ]
-
             ]
         ])
-    ]));
+    ]));	
     $txxt = file_get_contents('member.txt');
 $pmembersid= explode("\n",$txxt);
 	if (!in_array($chat_id,$pmembersid)) {
@@ -146,45 +145,29 @@ $pmembersid= explode("\n",$txxt);
 		$aaddd .= $chat_id."
 ";
     	file_put_contents('member.txt',$aaddd);
-}
+} 
  }
 
-	elseif(strpos($textmessage , 'تنظیم متن درباره من')!== false && $chat_id == $admin)
+	elseif(strpos($textmessage , '/setprofile')!== false && $chat_id == $admin)
 	{
-		$javab = str_replace('تنظیم متن درباره من',"",$textmessage);
+		$javab = str_replace('/setprofile',"",$textmessage);
 		if ($javab != "")
 	{
 	save("profile.txt","$javab");
-	SendMessage($chat_id,"با موفقیت تغییریافت");
+	SendMessage($chat_id,"*Changed.*");
 	}
 	}
-
-elseif($textmessage == 'درباره من')
+	
+elseif($textmessage == 'Profile')
 	{
 	$profile = file_get_contents("profile.txt");
 	Sendmessage($chat_id," $profile ");
 	}
-
-  elseif(strpos($textmessage , 'تنظیم متن اعضای تیم')!== false && $chat_id == $admin)
-  {
-    $javab = str_replace('تنظیم متن اعضای تیم',"",$textmessage);
-    if ($javab != "")
-  {
-  save("membertxt.txt","$javab");
-  SendMessage($chat_id,"با موفقیت تغییریافت");
-  }
-  }
-
-  elseif($textmessage == 'اعضای تیم')
-  {
-  $membertxt = file_get_contents("membertxt.txt");
-  Sendmessage($chat_id," $membertxt ");
-  }
-
-	elseif($textmessage == 'شماره من')
+	
+	elseif($textmessage == 'Contact Admin')
 {
-	$phone = '+989394456147';
-	$namea = 'mohamad';
+	$phone = '+989160730657';
+	$namea = 'Abbas :D';
 makereq('sendContact',[
 	'chat_id'=>$chat_id,
 	'phone_number'=>$phone,
@@ -192,105 +175,83 @@ makereq('sendContact',[
 	]);
 }
 
-elseif($textmessage == 'سفارش ربات')
-  {
-  	Sendmessage($chat_id,"برای سفارش ربات باقیمت
-    50000تومان
-    به ایدی زیر مراجعه کنید
-    @NobLest");
-  }
-
-elseif($textmessage == 'راهنما')
+elseif($textmessage == 'Help')
 if($chat_id == $admin){
 	{
-		Sendmessage($chat_id,"بلاک[reply]
+		Sendmessage($chat_id,"-*/ban[reply]*
 		مسدود کردن فرد
-
-		حذف بلاک[reply]
+		
+		-*/unban[reply]*
 		ازاد کردن فرد
-
-    تنظیم متن اعضای تیم [text]
-    تنظیم کردن متن اعضای تیم
-
-		تنظیم متن درباره من[text]
+		
+		-*/setprofile* [text]
 		نتظیم پروفایل شما");
 	}
 }
 else
 	{
-		Sendmessage($chat_id,"دکمه ارسال شماره شما به من:
-		ارسال شماره خود به من
-
-		دکمه ارسال مکان شما به من:
-		ارسال مکان شما به من
-
-
-    دکمه شماره من:
-		ارسال شماره من به شما
-
-		دکمه درباره من:
-		نمایش اطلاعات من
-
-    دکمه سفارش ربات:
-    سفارش ربات پیامرسان
-
-    دکمه راهنما:
-    نمایش راهنمای ربات
-
-
-    دکمه اعضای تیم:
-    نمایش اعضای تیم");
+		Sendmessage($chat_id,"-*Send Contact*
+		ارسال شماره خود به ادمین
+		
+		-*Send Location*
+		ارسال مکان شما به ادمین
+		
+		-*Contact Admin*
+		ارسال شماره ادمین به شما
+		
+		-*Profile*
+		نمایش اطلاعات ادمین");
 	}
 
 
 elseif ($chat_id != $admin) {
 
-
+    	
     	$txt = file_get_contents('banlist.txt');
 $membersid= explode("\n",$txt);
 $substr = substr($text, 0, 28);
 	if (!in_array($chat_id,$membersid)) {
 Forward($admin,$chat_id,$message_id);
-Sendmessage($chat_id,"پیام شما باموفقیت ارسال شد");
+Sendmessage($chat_id,"Pm You send to Pv Admin ✅");
 }else{
-
-Sendmessage($chat_id,"شما بلاک شده اید لطفا پیام ندهید");
+  
+Sendmessage($chat_id,"❌*You Are Banned*❌");
 
     }
     }
       elseif (isset($message['contact'])) {
-
+      
       if ( $chat_id != $admin) {
-
+    	
     	$txt = file_get_contents('banlist.txt');
 $membersid= explode("\n",$txt);
 
 $substr = substr($text, 0, 28);
 	if (!in_array($chat_id,$membersid)) {
 Forward($admin,$chat_id,$message_id);
-Sendmessage($chat_id,"شماره با موفقیت ارسال شد");
+Sendmessage($chat_id,"Shomare mord nazar ersal shod ✅");	
 }else{
-
-Sendmessage($chat_id,"شما بلاک شده اید لطفا پیام ندهید");
+  
+Sendmessage($chat_id,"❌*You Are Banned*❌");	
 
 }
     }
       }
 
 	   elseif (isset($message['sticker'])) {
-
+      
       if ( $chat_id != $admin) {
-
+    	
     	$txt = file_get_contents('banlist.txt');
 $membersid= explode("\n",$txt);
 
 $substr = substr($text, 0, 28);
 	if (!in_array($chat_id,$membersid)) {
 Forward($admin,$chat_id,$message_id);
-Sendmessage($chat_id,"استیکر با موفقیت ارسال شد");
+Sendmessage($chat_id,"sticker mord nazar ersal shod ✅");	
 }else{
-
-Sendmessage($chat_id,"شما بلاک شده اید لطفا پیام ندهید");
+  
+Sendmessage($chat_id,"❌*You Are Banned*❌");	
 
 }
     }
@@ -298,79 +259,79 @@ Sendmessage($chat_id,"شما بلاک شده اید لطفا پیام ندهید
 
 
    elseif (isset($message['photo'])) {
-
+      
       if ( $chat_id != $admin) {
-
+    	
     	$txt = file_get_contents('banlist.txt');
 $membersid= explode("\n",$txt);
 
 $substr = substr($text, 0, 28);
 	if (!in_array($chat_id,$membersid)) {
 Forward($admin,$chat_id,$message_id);
-Sendmessage($chat_id,"تصویر باموفقیت ارسال شد");
+Sendmessage($chat_id,"photo mord nazar ersal shod ✅");	
 }else{
-
-Sendmessage($chat_id,"شما بلاک شده اید لطفا پیام ندهید");
+  
+Sendmessage($chat_id,"❌*You Are Banned*❌");	
 
 }
     }
       }
-
+      
          elseif (isset($message['voice'])) {
-
+      
       if ( $chat_id != $admin) {
-
+    	
     	$txt = file_get_contents('banlist.txt');
 $membersid= explode("\n",$txt);
 
 $substr = substr($text, 0, 28);
 	if (!in_array($chat_id,$membersid)) {
 Forward($admin,$chat_id,$message_id);
-Sendmessage($chat_id,"ویس شما باموفقیت ارسال شد");
+Sendmessage($chat_id,"voice mord nazar ersal shod ✅");	
 }else{
-
-Sendmessage($chat_id,"شما بلاک شده اید لطفا پیام ندهید");
+  
+Sendmessage($chat_id,"❌*You Are Banned*❌");	
 
 }
     }
       }
                elseif (isset($message['video'])) {
-
+      
       if ( $chat_id != $admin) {
-
+    	
     	$txt = file_get_contents('banlist.txt');
 $membersid= explode("\n",$txt);
 
 $substr = substr($text, 0, 28);
 	if (!in_array($chat_id,$membersid)) {
 Forward($admin,$chat_id,$message_id);
-Sendmessage($chat_id,"فیلم شما ارسال شد");
+Sendmessage($chat_id,"video mord nazar ersal shod ✅");	
 }else{
-
-Sendmessage($chat_id,"شما بلاک شده اید لطفا پیام ندهید");
+  
+Sendmessage($chat_id,"❌*You Are Banned*❌");	
 
 }
     }
       }
+   
 
 
-
-	elseif($textmessage == 'لیست اعضا' && $chat_id == $admin)
+	elseif($textmessage == 'Count Member' && $chat_id == $admin)
 	{
 		$txtt = file_get_contents('member.txt');
 		$membersidd= explode("\n",$txtt);
 		$mmemcount = count($membersidd) -1;
 {
-sendmessage($chat_id,"لیست اعضای ربات : $mmemcount");
+sendmessage($chat_id,"*Member List* : $mmemcount");
 }
 }
 
-	elseif($textmessage == 'لیست افراد بلاک شده' && $chat_id == $admin){
+	elseif($textmessage == 'Block List' && $chat_id == $admin){
 		$txtt = file_get_contents('banlist.txt');
 		$membersidd= explode("\n",$txtt);
 		$mmemcount = count($membersidd) -1;
 {
-sendmessage($chat_id,"لیست بلاک شده ها : $mmemcount");
+sendmessage($chat_id,"*Block List* : $mmemcount");
 }
 }
 
@@ -378,32 +339,32 @@ sendmessage($chat_id,"لیست بلاک شده ها : $mmemcount");
 
 
                   elseif (isset($message['location'])) {
-
+      
       if ( $chat_id != $admin) {
-
+    	
     	$txt = file_get_contents('banlist.txt');
 $membersid= explode("\n",$txt);
 
 $substr = substr($text, 0, 28);
 	if (!in_array($chat_id,$membersid)) {
 Forward($admin,$chat_id,$message_id);
-Sendmessage($chat_id,"مکان موردنظر باموفقیت ارسال شد");
+Sendmessage($chat_id,"location mord nazar ersal shod ✅");	
 }else{
-
-Sendmessage($chat_id,"شما بلاک شده اید لطفا پیام ندهید");
+  
+Sendmessage($chat_id,"❌*You Are Banned*❌");	
 
 }
     }
       }
             elseif($rpto != "" && $chat_id == $admin){
-    	if($textmessage != "بلاک" && $textmessage != "حذف بلاک")
+    	if($textmessage != "/ban" && $textmessage != "/unban")
     	{
 sendmessage($rpto,"$textmessage");
-sendmessage($chat_id,"پیغام شما ارسال شد با موفقیت ارسال شد" );
+sendmessage($chat_id,"پیغام شما ارسال شد");
     	}
     	else
     	{
-    		if($textmessage == "بلاک"){
+    		if($textmessage == "/ban"){
     	$txtt = file_get_contents('banlist.txt');
 		$banid= explode("\n",$txtt);
 	if (!in_array($rpto,$banid)) {
@@ -414,12 +375,12 @@ sendmessage($chat_id,"پیغام شما ارسال شد با موفقیت ارس
 
     	file_put_contents('banlist.txt',$addd);
     	{
-sendmessage($rpto,"شما به لیست بلاک شده ها اضافه شده اید");
+sendmessage($rpto,"*You Are Added to block list*");
 sendmessage($chat_id,"به لیست بلاک شده ها افزوده شد");
         }
     		}
 }
-    	if($textmessage == "حذف بلاک"){
+    	if($textmessage == "/unban"){
     	$txttt = file_get_contents('banlist.txt');
 		$banidd= explode("\n",$txttt);
 	if (in_array($rpto,$banidd)) {
@@ -436,23 +397,23 @@ sendmessage($chat_id,"به لیست بلاک شده ها افزوده شد");
 
     	file_put_contents('banlist.txt',$adddd);
 }
-sendmessage($rpto,"شما از لیست بلاک شده ها پاک شدید");
+sendmessage($rpto,"*You Are UnBanned*");
 sendmessage($chat_id,"از لیست بلاک شده ها پاک شد");
     		}
     	}
 	}
+      
 
-
-        elseif ($textmessage =="ارسال پیام به همه"  && $chat_id == $admin | $booleans[0]=="false") {
+        elseif ($textmessage =="Send To All"  && $chat_id == $admin | $booleans[0]=="false") {
 	{
-          sendmessage($chat_id,"لطفا پیام خودرا ارسال کنید");
+          sendmessage($chat_id,"`Pls Send Msg`");
 	}
       $boolean = file_get_contents('booleans.txt');
 		  $booleans= explode("\n",$boolean);
 	  	$addd = file_get_contents('banlist.txt');
 	  	$addd = "true";
     	file_put_contents('booleans.txt',$addd);
-
+    	
     }
       elseif($chat_id == $admin && $booleans[0] == "true") {
     $texttoall = $textmessage;
@@ -460,7 +421,7 @@ sendmessage($chat_id,"از لیست بلاک شده ها پاک شد");
 		$membersidd= explode("\n",$ttxtt);
 		for($y=0;$y<count($membersidd);$y++){
 			sendmessage($membersidd[$y],"$texttoall");
-
+			
 		}
 		$memcout = count($membersidd)-1;
 	 	{
@@ -469,7 +430,7 @@ sendmessage($chat_id,"از لیست بلاک شده ها پاک شد");
          $addd = "false";
     	file_put_contents('booleans.txt',$addd);
     	}
- elseif($textmessage == 'پاک کردن لیست بلاک شده ها')
+ elseif($textmessage == 'Clean Blcok List')
  if($chat_id == $admin){
  {
  file_put_contents('banlist.txt',$chat_id);
