@@ -1,6 +1,6 @@
 <?php
 
-define('API_KEY','287810584:AAExpY7o8zB-NRzx71xT0gOBn5toP1ORcYc');
+define('API_KEY','287810584:AAEqEJtQ5frpMrKCZFqTOVt-iBrTWXejYJA');
 //----######------
 function makereq($method,$datas=[]){
     $url = "https://api.telegram.org/bot".API_KEY."/".$method;
@@ -101,7 +101,7 @@ if($textmessage == '/start')
  if ($from_id == $admin) {
 var_dump(makereq('sendMessage',[
         'chat_id'=>$update->message->chat->id,
-        'text'=>"*Hi Admin*\n`Wlecome To Your Bot`",
+        'text'=>"*سلام بابایی*\n خوش اومدی",
         'parse_mode'=>'MarkDown',
         'reply_markup'=>json_encode([
             'keyboard'=>[
@@ -122,7 +122,7 @@ var_dump(makereq('sendMessage',[
  
 var_dump(makereq('sendMessage',[
         'chat_id'=>$update->message->chat->id,
-        'text'=>"Hi `#$name` \n\nPls send *PM*",
+        'text'=>"سلام `$name` \n\nلطفا پیام خودرابفرستید",
         'parse_mode'=>'MarkDown',
         'reply_markup'=>json_encode([
             'keyboard'=>[
