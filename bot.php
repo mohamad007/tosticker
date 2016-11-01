@@ -182,8 +182,8 @@ elseif($textmessage == 'درباره من')
 
 	elseif($textmessage == 'شماره من')
 {
-	$phone = '+989394456147';
-	$namea = 'mohamad';
+	$phone = '+989363754994';
+	$namea = 'Erfan';
 makereq('sendContact',[
 	'chat_id'=>$chat_id,
 	'phone_number'=>$phone,
